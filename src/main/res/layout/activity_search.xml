@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SearchActivity">
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="点我返回"
+        android:id="@+id/reback"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/startdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="输入起始日期，如2023-01-01"
+                android:textSize="14dp"
+                android:textColor="@color/colorBlack"
+                android:textColorHint="#B5B5B5"
+                android:theme="@style/MyEditText" />
+            <EditText
+                android:id="@+id/enddate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="输入终止日期，如2023-09-01"
+                android:textSize="14dp"
+                android:textColor="@color/colorBlack"
+                android:textColorHint="#B5B5B5"
+                android:theme="@style/MyEditText" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/categories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="输入种类，如娱乐"
+                android:textSize="14dp"
+                android:textColor="@color/colorBlack"
+                android:textColorHint="#B5B5B5"
+                android:theme="@style/MyEditText" />
+            <EditText
+                android:id="@+id/word"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="输入关键词，如特朗普"
+                android:textSize="14dp"
+                android:textColor="@color/colorBlack"
+                android:textColorHint="#B5B5B5"
+                android:theme="@style/MyEditText" />
+        </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="搜索"
+            android:id="@+id/gosearch"/>
+    </LinearLayout>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/refreshLayout"
+        android:background="@color/colorWhite"
+        tools:context=".Fragment.NewsFragment"
+        app:srlAccentColor="@color/colorGrey"
+        app:srlPrimaryColor="@color/colorWhite">
+        <com.scwang.smartrefresh.layout.header.BezierRadarHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/Recycler_View"/>
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srlTextLoading="华小清正在疯狂加载~"
+            app:srlTextNothing="没有更多数据了"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+</LinearLayout>

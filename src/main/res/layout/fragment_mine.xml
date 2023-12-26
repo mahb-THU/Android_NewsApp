@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        tools:context=".Fragment.MineFragment">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="我的"
+                android:textSize="60dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:id="@+id/rl_collect"
+                    android:layout_width="match_parent"
+                    android:layout_height="78dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp">
+                    <ImageView
+                        android:id="@+id/img_collect"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/star" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/img_collect"
+                        android:text="我的收藏记录"
+                        android:textColor="#404040"
+                        android:textSize="16sp" />
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/arrow" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="#EEEEEE" />
+                <RelativeLayout
+                    android:id="@+id/rl_read"
+                    android:layout_width="match_parent"
+                    android:layout_height="78dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp">
+                    <ImageView
+                        android:id="@+id/img_skin"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/book" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/img_skin"
+                        android:text="我的浏览记录"
+                        android:textColor="#404040"
+                        android:textSize="16sp" />
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/arrow" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="#EEEEEE" />
+            </LinearLayout>
+        </LinearLayout>
+</RelativeLayout>

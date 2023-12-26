@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="91dp" />
+
+    <TextView
+        android:id="@+id/tit"
+        android:layout_width="255dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="华清闻新"
+        android:textSize="60dp" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:hint="用户名"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="#B5B5B5"
+        android:theme="@style/MyEditText" />
+
+    <EditText
+        android:id="@+id/pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:hint="密码"
+        android:inputType="textPassword"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="#B5B5B5"
+        android:theme="@style/MyEditText" />
+
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="10dp"
+        android:text="登录" />
+    <Button
+        android:id="@+id/reg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="10dp"
+        android:text="注册" />
+    <TextView
+        android:id="@+id/ps"
+        android:layout_width="270dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_margin="90dp"
+        android:text="POWERED BY THUKEG"
+        android:textSize="15dp" />
+
+</LinearLayout>
+
+

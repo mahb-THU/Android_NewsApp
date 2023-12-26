@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.java.mahongbo">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
+    <application
+        android:allowBackup="true"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:usesCleartextTraffic="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/cover"
+        android:label="华清闻新"
+        android:networkSecurityConfig="@xml/network_permission_config"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@drawable/cover"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplication"
+        tools:targetApi="31">
+        <activity
+            android:name=".signup.LogIn"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".signup.Register"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".signup.Welcome"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".NewsdetailActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".CollectActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".ReadActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".NewsdetailCollectActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".SearchActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".NewsdetailCancelCollectActivity"
+            android:exported="true">
+        </activity>
+    </application>
+
+</manifest>
