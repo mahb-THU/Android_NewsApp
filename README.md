@@ -1,148 +1,187 @@
-# 2023 年夏季 Java 小学期大作业实验报告
-## 本代码为THU2023小学期java大作业
-## 1 代码结构
-### 1.1 代码整体结构
-我的 java 代码中主要分为以下几个部分，adapter，api，entity，fragment，model，
-signup，utils，view，activity。我的 xml 代码中主要分为 layout，drawble，xml，values
-几个部分。
-### 1.2 各结构的具体功能
-#### 1.2.1 java 部分
-##### 1.2.1.1 adapter 的具体功能
-adapter 在我的代码中起到的是一个适配器的功能，它通过接收以 List/Arraylist 形
-式传来的数据，从而将这部分数据渲染到了 ui 界面上,也就是说，adapter 是数据处理逻辑
-和图形界面之间的一个桥梁。我 adapter里包括 CollectAdapter,NewsAdapter,ReadAdpter,
-实现了主页新闻列表，搜索新闻列表和浏览记录列表以及收藏记录列表的渲染。
-##### 1.2.1.2 api 的具体功能
-我的 api 文件夹中包含 Api,ApiInterface 两个文件，实现了一个简易的 retrofit 网
-络请求框架，通过 retrofit 这种集成式的网络框架，我实现了从接口网址获取数据，实现
-了对 json 格式数据的转换，实现了对网络请求多线程的处理。
-##### 1.2.1.3 entity的具体功能
-entity 下只有一个文件 tab，这个文件的主要功能是作为布局控件 tablayout 的一个
-补充组件，以实现更好的 ui 效果。
-##### 1.2.1.4 Fragment 的具体功能
-Fragment 文件夹下有 Categories,Home,Mine,News 四个 fragment 的文件，fragment 是
-嵌套在 activity 内的碎片，在某种意义上承担着与 activity 相似的功能，与前端文件进行
-连接，并写出逻辑上的指令方法。
-##### 1.2.1.5 model 的具体功能
-Model 中有两个文件 NewsData 和 NewsWhole,两个文件都是用来定义数据类型，
-NewsWhole是为了配合retrofit使用而建立的，retrofit将json文件解析后通过NewsWhole
-实例化为我们在程序中能够传递运行的数据类型。而 NewsData 是包含于 NewsWhole 中的一
-个数据子类，它包括了我们在之后的代码中能够用到的数据，并且 NewsData 也用于数据在
-各个文件之间的传递。
-##### 1.2.1.6 signup 的具体功能
-signup 里面包括了 Login，MydatabaseHelper，Register，Welcome 四个文件。signup
-内其实是三个与登录注册页面相关的 activity 和一个调用 database 的类，主要实现了登
-录注册的页面和账号密码的存储。
-##### 1.2.1.7 View 的具体功能
- View 里面只有一个文件 FixedPager，该文件是对类 viewpager 的继承，消除了滑动过
-程中滑动动画对用户体验的影响，相当于优化了 android 自带类 viewpager 的效果。
-##### 1.2.1.8 登录页面之后的 activity
-这部分实现的是整个新闻 app 的主体部分，其具体详细的介绍会在新闻报告的第二大
-部分中加以介绍。
-#### 1.2.2 res 的具体功能
-##### 1.2.2.1 drawble 的具体功能
-这部分主要是存储了一些图片资源和风格配色类的 xml 文件，用于图形界面的设计与
-美观。
-##### 1.2.2.2 layout 的具体功能
-这部分是每一个页面的布局文件，通过组件，框架的应用去写出每一个页面的布局。
-##### 1.2.2.3values 的具体功能
-这部分存放了一系列的风格文件，用于规范字体形式等，也通过代码的复用来减少代码
-量。
-##### 1.2.2.4 xml（文件夹）的具体功能
-这部分用 xml 文件写了一些规范性，权限性的内容，用于帮助并补充 AndroidManifest
-文件的规范。
-### 1.3 各个 java 文件之间的共性
-凡是在与 activity/fragment 相关的 java 的文件中，逻辑都是趋同的。首先都是
-initlayout，然后在 initview，即对整体的布局和控件进行渲染，最后再 initdata，通过
-一些方法获取数据，并且含有一些操控控件的方法。本次大作业我根据此共通之处在
-activity/fragment 文件中基本按照这个逻辑进行了封装，以增加代码的逻辑层次性，可复
-用性，可读性。
-### 1.4 对于代码整体逻辑的总结
-这部分内容可以看作是对于报告第一大部分的总结，也可以看作是对于报告第二大部分
-的开端。我的整体的 app 的实现思路就是：首先是一个登录+注册+欢迎的页面，然后是主页
-面，主页面分为“主页”和“我的”两个控件，“我的”中可以查看浏览记录，收藏记录，
-并取消收藏。“主页”中集成了搜索功能，分类功能，新闻列表功能，新闻列表点进去之后
-出现新闻详情页，详情页中实现文字展示，图片展示，视频展示和收藏功能。以上就是我的
-整个代码结构和整个新闻 app 的实现逻辑。
-## 2 具体实现
-### 2.0 声明。
-本实验在本机测试上已实现所有的大作业文档中要求的功能，并且额外的实现了一定量
-的附加功能。下面我将逐个功能地介绍我的具体实现。
-### 2.1 文档中功能的实现
-#### 2.1.1 新闻列表功能
-##### 2.1.1.1 正确展示新闻列表，点击可进入新闻详情页
-新闻 app 的整体架构我采用 FixedPager 和 CommonTablayout 组建而成，FixedPager 是
-android 自带组件 ViewPager 的子类，CommomTablayout 是 android 自带组件 Tablayout 的
-子类。两者都是 github 上的开源框架，通过这两者我搭建起了最外层的“首页”“我的”的
-ui 界面。“首页”中由于需要实现不同类别新闻的分类滑动实现，我采用了 Slidingtablayout
-与 FixedPager 的结合，以实现了顶部导航标签栏与下部新闻列表的联动效果。下部的新闻
-列表我采用了 RecyclerView 的控件实现，实现了滚动浏览的功能。这些就是整个新闻列表
-的 ui 实现思路。
-后端请求新闻方面，我采用了 retrofit 框架，通过开源框架 retrofit 实现了网络请求
-异步线程的处理，同时实现了 json 串的解析，将 json 串中数据用于实例化为数据后，通过
-适配器的构造传给了前端，实现了 ui 界面的渲染，从而正确地展示了新闻列表，并通过
-intent 和 bundle 方法实现了携带数据进入新闻详情页的跳转。
-##### 2.1.1.2 上拉获取更多新闻，下拉刷新最新新闻，并添加特效
-在呈现新闻列表使用的 Recyclerview 的基础上，我使用了继承于 Refreshlayout 的框
-架 Smartrefresh，在下拉和上拉的同时重新按照接口获取新闻，并且通过 Smartrefresh 自
-带的 BezierRadar 和 Classics 特效分别实现了上拉和上拉的动态特效。
-##### 2.1.1.3 按关键词，分类和时间搜索新闻，展示搜索结果
-此处的实现逻辑与获取新闻列表的基本相同，由于课程组已经为我们提供了搜索接口，
-所以我们只需要使用 editview 从用户端获取数据传入重写的获取新闻方法中，并同样地调
-用适配器去将搜索结果渲染到列表上。
-#### 2.1.2 列表分类
-##### 2.1.2.1 删除和添加分类，且修改是有动态特效
- 首先通过 Slidingtablayout 和 FixedPager 实现可以滑动的分类界面，每个分类中的
-新闻列表的实现是通过在搜索接口中填写不同的“类别”参数。添加和删除分类时在 ui 布
-局上我首先采用 BottomSheetDialogFragment 来在主页面的底部弹出弹窗页面，其中的布局
-我采用了 Tabflowlayout 实现了流式布局。至于特效，我通过仿造今日头条，在
-BottomSheetDialogFragment 上左右两侧各自构建了流式布局，通过两个列表之间元素的互
-相转换，从而实现了“闪烁”的动态特效。
-#### 2.1.3 新闻详情
-##### 2.1.3.1 详情页中显示新闻的来源和时间
-通过 intent 和 bundle 方法将网络请求的方法实现数据从 adapter 到 activity 的传
-递，再通过之前写好的 ui 布局，显示新闻的来源和时间。
-##### 2.1.3.2 详情页中正确播放新闻对应的视频且视频播放交互正常
-此功能的实现是借助 android 自带的 videoview 控件，通过将数据传来的 url 路径转
-化为 uri 路径，从而开始播放视屏。在通过 android studio 自带的 MediaController 控件
-实现视频的暂停与播放和快进/快退 15 秒。值得注意的是，在该功能的实现过程中，app 权
-限的设置特别考究：需要添加 access_network_state 权限和自己编辑好的安全许可，否则
-视频无法做到正常播放。
-#### 2.1.4 本地记录
-##### 2.1.4.1 本地存储看过的新闻，保证离线状况下仍然可以访问，且看过的新闻在
-##### 新闻列表中以灰色标记
-本地存储是我是通过借用数据库，我采用的数据库是 android studio 自带的 sqlite，
-当发生浏览事件的时候，我为浏览列表中的新闻卡片设置了监听事件，当按钮被点击的时候，
-该条新闻的相关数据变会被插入数据库，在本地进行存储。在记录中，在离线状态下，也可
-以从数据库中调取新闻数据，实现离线访问。同时在点击事件的方法中，检查数据库中有无
-同样的新闻，若是有就将其颜色置灰。
-##### 2.1.4.2 本地存储历史记录以及收藏记录，并可展示历史记录，收藏记录列表
-列表的渲染方式与新闻列表的渲染方式相似，区别在于获取新闻的方式不同，此功能的
-实现是从数据库中获取新闻然后进行渲染。
-### 2.2 额外功能的实现
-#### 2.2.1 登录注册页面的实现
-通过选取背景和绑定数据库，我实现了简单的用户信息管理，并且实现了欢迎界面，以
-给予用户更良好的体验，更具有吸引力。
-#### 2.2.2 字体的实现
-本 app 部分字体通过使用 typeface 方法使字体变为行楷字体，使得 app 的用户界面变
-得更为美观。
+# 2023 Summer Java Short-Term Project Report
 
+## This code is for the THU 2023 Summer Term Java Project
 
+## 1 Code Structure
 
+### 1.1 Overall Structure
 
+My Java code is mainly divided into the following parts: **adapter, api, entity, fragment, model, signup, utils, view, activity**.
+The XML code is mainly divided into **layout, drawable, xml, and values**.
 
+### 1.2 Functionality of Each Module
 
+#### 1.2.1 Java Part
 
+##### 1.2.1.1 Function of `adapter`
 
+The `adapter` serves as a bridge in my code, functioning as an adapter that receives data in the form of `List/ArrayList` and renders it onto the UI interface.
+In other words, the adapter connects data-processing logic and the graphical interface.
+My adapters include `CollectAdapter`, `NewsAdapter`, and `ReadAdapter`, which are responsible for rendering the homepage news list, search results list, browsing history list, and favorites list.
 
+##### 1.2.1.2 Function of `api`
 
+The `api` folder contains two files: `Api` and `ApiInterface`. These implement a simple **Retrofit-based network request framework**. Using Retrofit, I implemented:
 
+* retrieving data from API endpoints,
+* converting JSON data,
+* handling multithreading in network requests.
 
+##### 1.2.1.3 Function of `entity`
 
+The `entity` folder only contains one file, `tab`. Its main function is to serve as a supplementary component for the `TabLayout` UI control, improving the visual effect.
 
+##### 1.2.1.4 Function of `fragment`
 
+The `fragment` folder contains `Categories`, `Home`, `Mine`, and `News`.
+Fragments are UI components embedded in activities. They play a role similar to activities, connecting with front-end files and implementing logical methods.
 
+##### 1.2.1.5 Function of `model`
 
+The `model` folder contains two files: `NewsData` and `NewsWhole`.
 
+* `NewsWhole` is designed for Retrofit usage: Retrofit parses JSON into `NewsWhole` objects so that data can be passed and used within the app.
+* `NewsData` is a subclass contained in `NewsWhole`. It includes the data used across different files in the program and enables data transfer between modules.
 
+##### 1.2.1.6 Function of `signup`
+
+The `signup` folder includes `Login`, `MyDatabaseHelper`, `Register`, and `Welcome`.
+This folder contains three activities related to login/registration and one class for database access, implementing user authentication pages and account/password storage.
+
+##### 1.2.1.7 Function of `view`
+
+The `view` folder contains only one file, `FixedPager`.
+It extends the native `ViewPager` class, removing unwanted scrolling animations during page transitions, thereby improving the user experience.
+
+##### 1.2.1.8 Activities after login
+
+This part implements the **main body of the news app**, which will be described in detail in Section 2.
+
+#### 1.2.2 res Part
+
+##### 1.2.2.1 Function of `drawable`
+
+Stores image resources and XML style/color files, used for UI design and aesthetics.
+
+##### 1.2.2.2 Function of `layout`
+
+Contains layout files for each page, using components and frameworks to define UI layouts.
+
+##### 1.2.2.3 Function of `values`
+
+Stores style-related files such as font specifications. It helps enforce consistency and reduces redundant code.
+
+##### 1.2.2.4 Function of `xml` (folder)
+
+Contains XML files for specifications and permissions, serving as supplementary configurations for `AndroidManifest`.
+
+### 1.3 Common Patterns Among Java Files
+
+For all `activity`/`fragment`-related files, the logic is consistent:
+
+* `initLayout` → initialize layout
+* `initView` → render layout and UI components
+* `initData` → fetch and process data
+
+This common pattern improves **code structure, reusability, and readability**.
+
+### 1.4 Summary of Overall Logic
+
+This section can be seen both as a summary of Part 1 and as the beginning of Part 2.
+
+The overall implementation of my news app is as follows:
+
+* **Login + Registration + Welcome** pages
+* **Homepage** (with two sections: *Home* and *Mine*)
+
+  * *Mine*: browsing history, favorites, and canceling favorites
+  * *Home*: integrated search, categories, news list
+  * Clicking a news item opens a **news detail page** with text, images, video playback, and favorites
+
+This is the overall structure and logic of my project.
+
+---
+
+## 2 Implementation Details
+
+### 2.0 Declaration
+
+All the functionalities required in the assignment documentation have been fully implemented and tested locally.
+Additionally, I implemented some **extra features**. Below I describe them feature by feature.
+
+### 2.1 Implementation of Required Features
+
+#### 2.1.1 News List
+
+##### 2.1.1.1 Display news list and open detail page
+
+The app’s overall architecture uses `FixedPager` (a subclass of ViewPager) and `CommonTabLayout` (a subclass of TabLayout).
+
+* They form the outer structure of *Home* and *Mine*.
+* For category sliding in *Home*, I combined `SlidingTabLayout` and `FixedPager` to link top navigation tabs with news lists.
+* News lists are implemented with `RecyclerView`.
+
+For backend data requests, I used **Retrofit**, handling:
+
+* async network requests,
+* JSON parsing,
+* passing parsed data to adapters for UI rendering.
+
+Finally, I used `Intent` and `Bundle` to carry data into the news detail page.
+
+##### 2.1.1.2 Pull-to-refresh and load more
+
+Based on `RecyclerView`, I used `SmartRefreshLayout` to implement pull-to-refresh and load-more.
+
+* Refresh actions request news from APIs again.
+* Visual effects: `BezierRadar` for pull-down, `Classics` for pull-up.
+
+##### 2.1.1.3 Search news by keyword, category, and time
+
+Since the course provided search APIs, I simply retrieved user input from `EditView`, passed it into my news-fetching method, and reused the adapter to render search results.
+
+#### 2.1.2 Categories
+
+##### 2.1.2.1 Add/Delete categories with animation
+
+* Implemented sliding categories with `SlidingTabLayout` + `FixedPager`.
+* Adding/deleting categories uses `BottomSheetDialogFragment` (pop-up from bottom).
+* Category management UI uses `TabFlowLayout` for fluid layouts.
+* Animated effects were inspired by *Toutiao*: two list layouts on both sides of `BottomSheetDialogFragment` allow category migration with flashing animations.
+
+#### 2.1.3 News Detail
+
+##### 2.1.3.1 Show source and time
+
+Data was passed from adapter to activity via `Intent` and `Bundle`, then rendered in the detail page UI.
+
+##### 2.1.3.2 Video playback with proper interaction
+
+* Used Android’s native `VideoView`.
+* Converted URL to `Uri` to play video.
+* Used `MediaController` for play/pause and 15s skip forward/back.
+* Important: correct app permissions are required, including `ACCESS_NETWORK_STATE` and custom security settings.
+
+#### 2.1.4 Local Records
+
+##### 2.1.4.1 Local storage of viewed news, offline access, and gray marking
+
+* Used SQLite for local database storage.
+* When viewing a news item, its data is inserted into the DB.
+* If offline, news can still be retrieved from DB.
+* Viewed news is marked gray by checking existing entries in DB.
+
+##### 2.1.4.2 Store browsing and favorites history
+
+Similar rendering as the news list, but data is retrieved from SQLite rather than API.
+
+### 2.2 Extra Features
+
+#### 2.2.1 Login/Registration pages
+
+Implemented user info management with DB, added a welcome screen for better user experience and attractiveness.
+
+#### 2.2.2 Custom fonts
+
+Applied custom fonts (e.g., *Xingkai* style) using `Typeface`, making the UI more aesthetic.
 
